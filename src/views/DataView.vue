@@ -9,44 +9,34 @@
 import axios from "axios";
 import { ElMessage } from 'element-plus'
 
-const isRegister = () => {
+function isRegister() {
   axios({
     method: 'get',
-    url: 'http://localhost:8080/user/isRegister',
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Accept': 'application/json'
-    },
-    data: {
-      "username": 'LiBai'
-    }
+    url: 'http://localhost:8080/user/isRegister?username=LiBai'
   }).then(res => {
+    console.log(res)
     ElMessage({
       message: JSON.stringify(res),
       type: 'success',
     })
   }).catch(err => {
+    console.log(err)
     ElMessage.error(JSON.stringify(err))
   })
 }
 
-const myName = () => {
-  axios({
-    method: 'post',
-    url: 'http://localhost:8080/user/myName',
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Accept': 'application/json'
-    }
+function myName() {
+  axios.get('http://localhost:8080/user/myName', {
+    withCredentials: true
   }).then(res => {
+    console.log(res)
     ElMessage({
       message: JSON.stringify(res),
       type: 'success',
       duration: 2000
     })
   }).catch(err => {
+    console.log(err)
     ElMessage.error(JSON.stringify(err))
   })
 }

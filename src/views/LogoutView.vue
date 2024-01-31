@@ -12,23 +12,19 @@
 
 <script lang="ts" setup>
 import axios from "axios";
-import { ElMessage } from 'element-plus'
 
-const logout = () => {
+function logout() {
   axios({
     method: 'post',
     url: 'http://localhost:8080/logout',
     headers: {
       'Access-Control-Allow-Origin': '*',
-      'Content-Type': 'application/x-www-form-urlencoded'
+      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
     },
   }).then(res => {
-    ElMessage({
-      message: JSON.stringify(res),
-      type: 'success',
-    })
+    console.log(res)
   }).catch(err => {
-    ElMessage.error(JSON.stringify(err))
+    console.log(err)
   })
 }
 </script>
