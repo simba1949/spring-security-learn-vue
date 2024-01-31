@@ -1,19 +1,11 @@
 <template>
   <el-form :model="form" label-width="120px">
     <el-form-item label="登录名">
-      <el-input
-          v-model="form.username"
-          type="text"
-          placeholder="Please input username"/>
+      <el-input v-model="form.username" type="text" placeholder="Please input username" />
     </el-form-item>
 
     <el-form-item label="密码">
-      <el-input
-          v-model="form.password"
-          type="password"
-          placeholder="Please input password"
-          show-password
-      />
+      <el-input v-model="form.password" type="password" placeholder="Please input password" show-password />
     </el-form-item>
 
     <el-form-item>
@@ -24,8 +16,9 @@
 </template>
 
 <script lang="ts" setup>
-import {reactive} from 'vue'
+import { reactive } from 'vue'
 import axios from "axios";
+import { ElMessage } from 'element-plus'
 
 // do not use same name with ref
 const form = reactive({
@@ -34,17 +27,23 @@ const form = reactive({
 })
 
 const onSubmit = () => {
+  console.log(form);
+
   axios({
     method: 'post',
     url: 'http://localhost:8080/login',
-    data: {
-      username: form.username,
-      password: form.password
-    }
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    data: form
   }).then(res => {
-    console.log(res)
+    ElMessage({
+      message: JSON.stringify(res),
+      type: 'success',
+    })
   }).catch(err => {
-    console.log(err)
+    ElMessage.error(JSON.stringify(err))
   })
 }
 </script>
