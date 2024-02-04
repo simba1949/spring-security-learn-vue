@@ -20,8 +20,8 @@ const router = createRouter({
       component: () => import('../views/LogoutView.vue')
     },
     {
-      path: '/Data',
-      name: 'Data',
+      path: '/DataView',
+      name: 'DataView',
       component: () => import('../views/DataView.vue')
     }
   ]

@@ -18,6 +18,7 @@
 <script lang="ts" setup>
 import { reactive } from 'vue'
 import axios from "axios";
+import { ElMessage } from 'element-plus'
 
 // do not use same name with ref
 const form = reactive({
@@ -28,16 +29,18 @@ const form = reactive({
 function onSubmit() {
   axios({
     method: 'post',
-    url: 'http://localhost:8080/login',
+    url: '/api/login',
     headers: {
-      'Access-Control-Allow-Origin': '*',
       'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
     },
     data: form
   }).then(res => {
-    console.log(res)
+    ElMessage({
+      message: JSON.stringify(res),
+      type: 'success',
+    })
   }).catch(err => {
-    console.log(err)
+    ElMessage.error(JSON.stringify(err))
   })
 }
 </script>
